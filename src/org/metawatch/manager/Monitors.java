@@ -155,6 +155,8 @@ public class Monitors {
 			} catch (IllegalArgumentException e) {
 				if (Preferences.logging)
 					Log.d(MetaWatch.TAG,"Failed to initialise Geolocation "+e.getMessage());
+				
+				// TODO If it fails, listen for location services state change
 			}
 		}
 		else {
