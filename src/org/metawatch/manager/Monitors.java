@@ -143,14 +143,19 @@ public class Monitors {
 			if (Preferences.logging) Log.d(MetaWatch.TAG,
 					"Initialising Geolocation");
 			
-			locationUpdater = new LocationUpdater(context)
-				.setInterval(30 * 60 * 100)
-				.setDistance(500.0f)
-				.start();
-			
-			RefreshLocation();
-			
-			createLocationReceiver(context);
+			try {
+				locationUpdater = new LocationUpdater(context)
+					.setInterval(30 * 60 * 100)
+					.setDistance(500.0f)
+					.start();
+				
+				RefreshLocation();
+				
+				createLocationReceiver(context);
+			} catch (IllegalArgumentException e) {
+				if (Preferences.logging)
+					Log.d(MetaWatch.TAG,"Failed to initialise Geolocation "+e.getMessage());
+			}
 		}
 		else {
 			if (Preferences.logging) Log.d(MetaWatch.TAG,"Geolocation disabled");
